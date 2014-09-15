@@ -12,25 +12,23 @@ echo "# -----------------------------------------------------------------------"
 read -p "Y or N? : " init
 if [[ $init == [Yy] ]] ; then
 apt-get update -qq && apt-get -y dist-upgrade
-
-
-# Lets check for some common control panels that we know will affect the installation/operating of ZPanel.
+# Lets check for some common control panels that we know will affect the installation/operating of WPUbuntu.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
-    echo "You appear to have a control panel already installed on your server; This installer"
-    echo "is designed to install and configure ZPanel on a clean OS installation only!"
-    echo ""
+    echo "# -----------------------------------------------------------------------"
+    echo "You appear to have a control panel already installed on your server!"
     echo "Please re-install your OS before attempting to install using this script."
+    echo "# -----------------------------------------------------------------------"
+    echo "Press any key to exit..."
+    read exit
     exit
 fi
-
-# Lets check for some common packages that we know will affect the installation/operating of ZPanel.
-# We expect a clean OS so no apache/mySQL/bind/php!
 if dpkg -s php apache mysql bind; then
-    echo "You appear to have a server with apache/mysql/bind/postfix already installed; "
-    echo "This installer is designed to install and configure ZPanel on a clean OS "
-    echo "installation only!"
-    echo ""
+    echo "# -----------------------------------------------------------------------"
+    echo "You appear to have a server with LAMP already installed!"
     echo "Please re-install your OS before attempting to install using this script."
+    echo "# -----------------------------------------------------------------------"
+    echo "Press any key to exit..."
+    read exit
     exit
 fi
 # -----------------------------------------------------------------------
@@ -48,7 +46,9 @@ echo "Detected : $OS  $VER  $BITS"
 if [ "$OS" = "Ubuntu" ] && [ "$VER" = "12.04" ]; then
   echo "Ok."
 else
-  echo "Sorry, this installer only supports the installation of WPU on Ubuntu 12.04."
+  echo "# -----------------------------------------------------------------------"
+  echo "Sorry, this installer only supports WPU on Ubuntu 12.04."
+  echo "# -----------------------------------------------------------------------"
   exit 1;
 fi
 # -----------------------------------------------------------------------
